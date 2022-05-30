@@ -3,26 +3,63 @@
 @{
 }
 
+<br/>
+<div class="container row">
+	<div class="col-10">
+		<h2>Mano užrašai</h2>
+	</div>
+	<div class="col-2">
+		<a asp-page="CreateNote" class="btn btn-info">Sukurti užrašą</a>
+	</div>
+</div>
 
-	<table>
-		<tr>
-			<th>
-				<h1>Title</h1>
-			</th>
-			<th>
-				<h1>Content</h1>
-			</th>
-		</tr>
-		@foreach (var item in Model.Notes)
+<div>
+	<form>
+		Pavadinimas: <input type="text" asp-for="SearchInputTitle"/>
+		<input type="submit" value="Ieškoti"/>
+	</form>
+</div>
+
+<div class="col-12 border p-2 mt-2">
+
+	<form method="post">
+		@if (Model.Notes.Count > 0)
+		{
+			<table class="table table-striped border-1">
+				<tr class="table-secondary">
+					<th>
+						<label>Pavadinimas</label>
+					</th>
+					<th>
+						<label>Tekstas</label>
+					</th>
+				</tr>
+
+		@foreach (var book in Model.Notes)
 		{
 		<tr>
 			<td>
-				@item.Title
+				@book.Title
 			</td>
 			<td>
-				@item.Content
+				@book.Content
+			</td>
+			<td>
+				<button asp-page-handler="Delete" asp-route-id="@book.Id" onclick="return confirm('Tikrai norite ištrinti užrašą?')" class="btn btn-danger btn-sm">Ištrinti</button>
+				<a asp-page="Edit" asp-route-id="@book.Id" class="btn btn-success btn-sm">Koreguoti</a>
 			</td>
 		</tr>
 		}
-	</table>
-
+			</table>
+		}
+		else
+		{
+			<p>Jokių užrašų nėra.</p>
+		}
+	</form>
+</div>
+    <div>
+        <section>
+           <img src="/notes-show.png" alt="Main"/>
+        </section>
+    </div>

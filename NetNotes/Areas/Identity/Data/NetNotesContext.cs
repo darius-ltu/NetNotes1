@@ -14,6 +14,7 @@ public class NetNotesContext : IdentityDbContext<NetNotesUser>
     }
 
     public DbSet<Note> Notes { get; set; }
+    public DbSet<Categories> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

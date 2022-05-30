@@ -1,0 +1,59 @@
+﻿@*
+
+@page
+@model NetNotes.Pages.Categor.IndexModel
+@{
+}
+
+<br/>
+<div class="container row">
+	<div class="col-10">
+		<h2>Categories List</h2>
+	</div>
+	<div class="col-2">
+		<a asp-page="CreateCategory" class="btn btn-info">Create category</a>
+	</div>
+</div>
+
+<div>
+	<form>
+		Title: <input type="text" asp-for="SearchInputTitle"/>
+		<input type="submit" value="Search"/>
+	</form>
+</div>
+
+<div class="col-12 border p-2 mt-2">
+
+	<form method="post">
+		@if (Model.Categories.Count > 0)
+		{
+			<table class="table table-striped border-1">
+				<tr class="table-secondary">
+					<th>
+						<label>Title</label>
+					</th>
+				</tr>
+				<tr>
+			<th>
+				<h1>Title</h1>
+			</th>
+		</tr>
+		@foreach (var book in Model.Categories)
+		{
+		<tr>
+			<td>
+				@book.Title
+				<button asp-page-handler="Delete" asp-route-id="@book.Id" onclick="return confirm('Really??? You want delete Category?')" class="btn btn-danger btn-sm">Delete</button>
+				<a asp-page="Edit" asp-route-id="@book.Id" class="btn btn-success btn-sm">Edit</a>
+			</td>
+		</tr>
+		}
+			</table>
+		}
+		else
+		{
+			<p>No categories available.</p>
+		}
+	</form>
+</div>
+*@

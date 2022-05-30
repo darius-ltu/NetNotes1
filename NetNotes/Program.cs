@@ -5,16 +5,20 @@ using NetNotes.Repositories;
 using NetNotes.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("NetNotesContextConnection") ?? throw new InvalidOperationException("Connection string 'NetNotesContextConnection' not found.");
+//var connectionString = builder.Configuration.GetConnectionString("NetNotesContextConnection") ?? throw new InvalidOperationException("Connection string 'NetNotesContextConnection' not found.");
 
-builder.Services.AddDbContext<NetNotesContext>(options =>
-    options.UseSqlServer(connectionString));;
+//builder.Services.AddDbContext<NetNotesContext>(options =>
+    //options.UseSqlServer(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<NetNotesContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<NetNotesUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<NetNotesContext>();;
+    .AddEntityFrameworkStores<NetNotesContext>();
 
 builder.Services.AddTransient<NotesRepository>();
 builder.Services.AddTransient<UserService>();
+//builder.Services.AddTransient<CategorRepository>();
+builder.Services.AddControllers();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
